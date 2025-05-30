@@ -20,8 +20,8 @@ FROM nginx:stable-alpine
 # Copy built files from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 8080 (or change if needed)
-EXPOSE 8080
+# Expose port 3000(or change if needed)
+EXPOSE 3000
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
