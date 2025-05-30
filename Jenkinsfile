@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HOST_IP = "3.110.83.34"       // Replace with actual EC2 IP
+        DOCKER_HOST_IP = "65.0.214.68"       // Replace with actual EC2 IP
         DOCKER_USER = "ubuntu"                      // Assuming default EC2 user
         DOCKER_APP_DIR = "story-generator"          // Directory name on EC2
         REPO_URL = "https://github.com/MaNdAr7218/Sample.git" // Replace with your actual repo
