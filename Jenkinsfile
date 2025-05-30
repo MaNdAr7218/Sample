@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HOST_IP = "65.0.214.68"       // Replace with actual EC2 IP
-        DOCKER_USER = "ubuntu"                      // Assuming default EC2 user
-        DOCKER_APP_DIR = "story-generator"          // Directory name on EC2
-        REPO_URL = "https://github.com/MaNdAr7218/Sample.git" // Replace with your actual repo
+        DOCKER_HOST_IP = "65.0.214.68"
+        DOCKER_USER = "ubuntu"
+        DOCKER_APP_DIR = "story-generator"
+        REPO_URL = "https://github.com/MaNdAr7218/Sample.git"
         IMAGE_NAME = "story-gen-app"
         CONTAINER_NAME = "story-gen-container"
         PORT = "3000"
@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git "${REPO_URL}"
+                git branch: 'main', url: "${REPO_URL}"
             }
         }
 
@@ -45,7 +45,7 @@ pipeline {
                 echo "Running container on EC2..."
                 ssh ${DOCKER_USER}@${DOCKER_HOST_IP} '
                     docker rm -f ${CONTAINER_NAME} || true &&
-                    docker run -d -p ${PORT}:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}
+                    docker run -d -p ${PORT}:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}
                 '
                 """
             }
@@ -62,3 +62,4 @@ pipeline {
         }
     }
 }
+
