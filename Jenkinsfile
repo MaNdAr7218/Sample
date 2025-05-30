@@ -45,7 +45,7 @@ pipeline {
                 echo "Running container on EC2..."
                 ssh ${DOCKER_USER}@${DOCKER_HOST_IP} '
                     docker rm -f ${CONTAINER_NAME} || true &&
-                    docker run -d -p ${PORT}:${PORT} --name ${CONTAINER_NAME} ${IMAGE_NAME}
+                    docker run -d -p ${PORT}:80 --name ${CONTAINER_NAME} ${IMAGE_NAME}
                 '
                 """
             }
