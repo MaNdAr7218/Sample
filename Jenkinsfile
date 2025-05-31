@@ -22,16 +22,16 @@ pipeline {
                     rm -rf ${DOCKER_APP_DIR} && mkdir -p ${DOCKER_APP_DIR}
                 '
 
-                scp -i \$KEY -o StrictHostKeyChecking=no -r \
-                    src public \
-                    Dockerfile package.json package-lock.json vite.config.js index.html\
-                    bun.lockb components.json eslint.config.js index.html postcss.config.js tailwand.config.ts\
-                    tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts\
-                    ${DOCKER_USER}@${DOCKER_HOST_IP}:${DOCKER_APP_DIR}/
+                scp -i \$KEY -o StrictHostKeyChecking=no -r src public \
+        Dockerfile package.json package-lock.json index.html \
+        bun.lockb components.json eslint.config.js postcss.config.js \
+        tailwind.config.ts tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts \
+        ${DOCKER_USER}@${DOCKER_HOST_IP}:${DOCKER_APP_DIR}/
+
 
                 ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
                     cd ${DOCKER_APP_DIR} &&
-                    docker build -t story-app .
+                    docker build -t vite-story-app .
                 '
             """
         }
@@ -45,7 +45,7 @@ pipeline {
                     sh """
                         ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
                             docker rm -f story-container || true &&
-                            docker run -d -p 3000:3000 --name story-container story-app
+                            docker run -d -p 3000:3000 --name vite-story-container vite-story-app
                         '
                     """
                 }
