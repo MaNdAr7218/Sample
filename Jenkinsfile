@@ -31,7 +31,7 @@ pipeline {
 
                 ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
                     cd ${DOCKER_APP_DIR} &&
-                    docker build -t vite-chat-app .
+                    docker build -t story-app .
                 '
             """
         }
@@ -44,8 +44,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'KEY')]) {
                     sh """
                         ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
-                            docker rm -f vite-chat-container || true &&
-                            docker run -d -p 3000:3000 --name vite-chat-container vite-chat-app
+                            docker rm -f story-container || true &&
+                            docker run -d -p 3000:3000 --name story-container story-app
                         '
                     """
                 }
