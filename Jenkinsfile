@@ -44,7 +44,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'KEY')]) {
                     sh """
                         ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
-                            docker rm -f story-container || true &&
+                            docker rm -f vite-story-container || true &&
                             docker run -d -p 3000:80 --name vite-story-container vite-story-app
                         '
                     """
