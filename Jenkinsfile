@@ -58,8 +58,7 @@ pipeline {
       echo "Waiting for the app to be live..."
       sleep(10)
       sh """
-        # Activate venv and run test
-        source ~/selenium-venv/bin/activate
+        . /var/lib/jenkins/selenium-venv/bin/activate
         python3 Selenium.py
       """
         }
