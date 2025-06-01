@@ -1,29 +1,27 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import time
 
-# Set headless Chrome options
 options = Options()
+options.binary_location = '/usr/bin/chromium-browser'  # or '/usr/bin/google-chrome'
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-# Launch the browser
-driver = webdriver.Chrome(options=options)
+service = Service('/usr/local/bin/chromedriver')  # adjust path if needed
+driver = webdriver.Chrome(service=service, options=options)
 
 try:
-    # Open the StoryWeaver app
-    driver.get("http://65.0.214.68")  # Change IP if different
+    driver.get("http://65.0.214.68")  # Your app IP
 
-    time.sleep(2)  # wait for content to load
+    time.sleep(2)  # Wait for page to load
 
-    # Assert headline is present
     headline = driver.find_element(By.XPATH, "//*[contains(text(),'Transform') and contains(text(),'enchanting stories')]")
     assert headline.is_displayed()
     print("✅ Headline found.")
 
-    # Try clicking "Get Started" button
     get_started_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Get Started')]")
     if get_started_button.is_displayed():
         print("✅ Get Started button is visible.")
