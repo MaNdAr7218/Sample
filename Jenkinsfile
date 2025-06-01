@@ -51,16 +51,15 @@ pipeline {
                 }
             }
         }
-
-       stage('Selenium Tests') {
+stage('Selenium Tests') {
   steps {
-    script {
-      echo "Waiting for the app to be live..."
-      sleep(10)
-      sh '''
-    . /home/ubuntu/selenium-venv/bin/python
-    python3 Selenium.py
-'''
+    echo "Waiting for the app to be live..."
+    sleep time: 10, unit: 'SECONDS'
+
+    sh '''
+      cd Selenium
+      node Selenium.js
+    '''
 
         }
       }
