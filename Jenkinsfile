@@ -52,13 +52,14 @@ pipeline {
             }
         }
 
-        stage('Selenium Tests') {
-            steps {
-                sh """
-                    echo "Running Selenium tests..."
-                    # TODO: Add your Selenium test command here
-                """
-            }
+       stage('Selenium Tests') {
+      steps {
+        script {
+          echo "Waiting for the app to be live..."
+          sleep(10)
+          sh "python3 selenium.py"
         }
+      }
     }
+  }
 }
