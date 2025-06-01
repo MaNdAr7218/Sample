@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+       stage('Build Docker Image') {
     steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'KEY')]) {
             sh """
@@ -22,20 +22,14 @@ pipeline {
                     rm -rf ${DOCKER_APP_DIR} && mkdir -p ${DOCKER_APP_DIR}
                 '
 
-                scp -i \$KEY -o StrictHostKeyChecking=no -r src public Selenium.js \
-                    Dockerfile package.json package-lock.json index.html \
-                    bun.lockb components.json eslint.config.js postcss.config.js \
-                    tailwind.config.ts tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts \
+                scp -i \$KEY -o StrictHostKeyChecking=no -r src public Selenium.js Dockerfile package.json package-lock.json index.html \
+                    bun.lockb components.json eslint.config.js postcss.config.js tailwind.config.ts tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts \
                     ${DOCKER_USER}@${DOCKER_HOST_IP}:${DOCKER_APP_DIR}/
-
-                ssh -i \$KEY -o StrictHostKeyChecking=no ${DOCKER_USER}@${DOCKER_HOST_IP} '
-                    cd ${DOCKER_APP_DIR} &&
-                    docker build -t vite-story-app .
-                '
             """
         }
     }
 }
+
 
 
         stage('Run Container') {
