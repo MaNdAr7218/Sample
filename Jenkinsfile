@@ -57,7 +57,7 @@ pipeline {
         script {
           echo "Waiting for the app to be live..."
           sleep(10)
-          sh "python3 selenium.py"
+          sh "python3 Selenium.py"
         }
       }
     }
