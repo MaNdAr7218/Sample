@@ -53,11 +53,15 @@ pipeline {
         }
 
        stage('Selenium Tests') {
-      steps {
-        script {
-          echo "Waiting for the app to be live..."
-          sleep(10)
-          sh "python3 Selenium.py"
+  steps {
+    script {
+      echo "Waiting for the app to be live..."
+      sleep(10)
+      sh """
+        # Activate venv and run test
+        source ~/selenium-venv/bin/activate
+        python3 Selenium.py
+      """
         }
       }
     }
