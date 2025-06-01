@@ -57,10 +57,11 @@ pipeline {
     script {
       echo "Waiting for the app to be live..."
       sleep(10)
-      sh """
-        . /var/lib/jenkins/selenium-venv/bin/activate
-        python3 Selenium.py
-      """
+      sh '''
+    . /var/lib/jenkins/selenium-venv/bin/activate
+    python3 Selenium.py
+'''
+
         }
       }
     }
