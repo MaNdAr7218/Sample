@@ -58,8 +58,10 @@ stage('Selenium Tests') {
 
     sh '''
       cd Selenium
+      npm install # make sure dependencies are installed
       node Selenium.js
     '''
+
 
         }
       }
