@@ -20,7 +20,7 @@ FROM nginx:stable-alpine
 # Copy built files from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 3000(or change if needed)
+# Expose port 80(or change if needed)
 EXPOSE 80
 
 # Start Nginx server
